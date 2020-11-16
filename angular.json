@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-lab"
+    }
+  },
+  "defaultProject": "ng-lab",
+  "cli": {
+    "analytics": "57685e0b-9941-4510-a3fb-138646320827"
+  }
 }
