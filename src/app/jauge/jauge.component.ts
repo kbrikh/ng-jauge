@@ -19,27 +19,25 @@ export class JaugeComponent implements OnInit {
     constructor(private elm: ElementRef) {}
 
     ngOnInit(): void {
-        const targetElt = this.elm.nativeElement.querySelector('#score canvas');
+        this.canvas = this.elm.nativeElement.querySelector('#score canvas');
         this.percent = parseInt(this.percent, 10);
 
         if (this.percent > 0 && this.percent <= 100) {
             this.myIntervals = setInterval(
-                this.increment.bind(this, this.percent, targetElt),
+                this.increment.bind(this, this.percent),
                 10
             );
         } else {
             this.percent = 0;
-            this.increment(this.percent, targetElt);
+            this.increment(this.percent);
         }
     }
 
     /*
      **	setInterval de increment(min, max, target)
      **	@param max: int - entre 0 et 100
-     **	@param target : elt HTML - la balise canvas cible
-     **	@param setIntId : int - id du setInterval
      */
-    increment(max, target): any {
+    increment(max): any {
         if (max) {
             if (this.min > max - 1) {
                 clearInterval(this.myIntervals);
@@ -47,9 +45,9 @@ export class JaugeComponent implements OnInit {
             }
             this.min += 1;
 
-            this.circle(this.min, target);
+            this.circle(this.min);
         } else {
-            this.circle(this.min, target);
+            this.circle(this.min);
         }
     }
 
@@ -58,16 +56,15 @@ export class JaugeComponent implements OnInit {
      **	@param i:number - nombre de 0 à 100
      **	@param target : elt HTML - l'élément canvas cible
      */
-    circle(i, target): any {
+    circle(i): any {
         const data = parseInt(i, 10);
         const cx = this.canvasWidth / 2;
         const cy = this.canvasHeight / 2;
 
-        const canvas = target;
-        canvas.width = this.canvasWidth;
-        canvas.height = this.canvasHeight;
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
 
-        const context = canvas.getContext('2d');
+        const context = this.canvas.getContext('2d');
         context.font = '30px Arial';
         context.fillText(data + '%', 130, 150);
         context.beginPath();
