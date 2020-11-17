@@ -42,7 +42,6 @@ export class JaugeComponent implements OnInit {
     increment(max, target): any {
         if (max) {
             if (this.min > max - 1) {
-                // stop à max
                 clearInterval(this.myIntervals);
                 return;
             }
